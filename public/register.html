@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" href="/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<script src="script.js"></script>
+</head>
+<body>
+    <div class="typing-container">
+        <span id="typing-text"></span>
+        <span class="cursor">|</span>
+      </div>
+      
+      
+
+	<div class="main">  	
+         
+
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+			<div class="signup">
+				<form id="signupForm">
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" id="regUsername" name="txt" placeholder="User name" required="">
+					<input type="email"  id="regEmail" name="email" placeholder="Email" required="">
+                    <input type="number" id="regMobile" name="broj" placeholder="Mobile" required="">
+					<input type="password" id="regPassword" name="pswd" placeholder="Password" required="">
+					<button>Sign up</button>
+				</form>
+        <div id="regMessage" class="message-box"></div>
+
+			</div>
+      <div id="regMessage" class="message-box"></div>
+
+			<div class="login">
+				<form id="loginForm">
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+    <script src="script.js"></script>
+    <script src="validator.js"></script>
+
+    <script>
+        const phrases = ["Know Your Card...", "Validate Safely...", "Stay Secure..."];
+        const typingText = document.getElementById("typing-text");
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let typing = true;
+        
+        function typeEffect() {
+          const currentPhrase = phrases[phraseIndex];
+        
+          if (typing) {
+            typingText.textContent = currentPhrase.slice(0, ++charIndex);
+            if (charIndex === currentPhrase.length) {
+              typing = false;
+              setTimeout(typeEffect, 1500); // Pause after typing
+              return;
+            }
+          } else {
+            typingText.textContent = currentPhrase.slice(0, --charIndex);
+            if (charIndex === 0) {
+              typing = true;
+              phraseIndex = (phraseIndex + 1) % phrases.length;
+            }
+          }
+        
+          setTimeout(typeEffect, typing ? 100 : 50); // Typing speed
+        }
+        
+        typeEffect();
+        </script>
+        
+</body>
+</html>

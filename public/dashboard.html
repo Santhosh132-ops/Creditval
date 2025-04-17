@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CreditVal | Card Validator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              softBlue: '#e0f7fa',
+              vibrantBlue: '#00bcd4',
+              goldenYellow: '#ffc107',
+              paleGray: '#f8f9fa',
+              translucent: 'rgba(255, 255, 255, 0.5)',
+            },
+          },
+        },
+      };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="bg-softBlue text-gray-800 font-inter overflow-x-hidden relative min-h-screen"></body>
+    <!-- Particles Background -->
+    <div id="tsparticles" class="absolute inset-0 -z-10 blur-sm opacity-70"></div>
+
+
+    <!-- Navbar -->
+    <div class="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-translucent backdrop-blur-xl border border-white/30 shadow-xl rounded-full px-10 py-3 flex gap-8 items-center">
+      <div class="flex items-center space-x-2">
+        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-goldenYellow to-vibrantBlue animate-pulse"></div>
+        <span class="font-bold text-vibrantBlue text-lg tracking-wide">CreditVal</span>
+      </div>
+      <nav class="flex gap-6 text-sm font-medium">
+        <a href="#home" class="hover:text-vibrantBlue transition">Home</a>
+        <a href="#safety" class="hover:text-vibrantBlue transition">Safety</a>
+        <a href="#about" class="hover:text-vibrantBlue transition">About</a>
+      </nav>
+    </div>
+
+    <!-- Hero Section -->
+    
+    <section id="home" class="pt-36 pb-20 flex flex-col items-center text-center px-4 relative z-10" data-aos="fade-up">
+      <h2 class="text-4xl font-bold text-vibrantBlue mb-4">Validate Your Credit Card</h2>
+      <p class="max-w-xl text-gray-600 mb-10">Fast, safe, and smart card validation. Built for clarity and simplicity.</p>
+
+      <div class="bg-white bg-opacity-80 backdrop-blur-xl rounded-2xl p-8 w-full max-w-md shadow-2xl border border-gray-200 transition hover:scale-[1.01]">
+        <div class="w-12 h-8 bg-gradient-to-b from-gray-300 to-gray-500 rounded-md mx-auto mb-6"></div>
+        <input id="cardInput" type="text" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" class="w-full px-4 py-3 rounded-lg text-center text-lg tracking-widest bg-paleGray text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-vibrantBlue placeholder-gray-500" />
+        <button onclick="validateCard()" class="w-full mt-5 py-3 bg-gradient-to-tr from-vibrantBlue to-goldenYellow hover:from-cyan-500 hover:to-yellow-400 text-white font-semibold rounded-lg transition-all shadow-md">Validate Card</button>
+        <div id="result" class="mt-6 p-5 rounded-xl bg-paleGray text-left space-y-2 hidden"></div>
+      </div>
+    </section>
+    
+    
+
+    <!-- Safety Section -->
+    <section id="safety" class="py-24 px-6 bg-white/60 backdrop-blur-md rounded-t-3xl text-gray-800 relative z-10" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-4xl font-semibold text-vibrantBlue text-center mb-12">🔐 Safety Measures</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-vibrantBlue/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-4xl text-vibrantBlue mb-4">🛡️</div>
+            <h4 class="text-xl font-semibold mb-2">Client-Side Validation</h4>
+            <p class="text-gray-700">Card data is processed directly in-browser using the Luhn algorithm. No transmission or storage involved.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-vibrantBlue/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-4xl text-vibrantBlue mb-4">🔐</div>
+            <h4 class="text-xl font-semibold mb-2">No Data Stored</h4>
+            <p class="text-gray-700">We don’t store or log any card details. Full security transparency built-in from the ground up.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-vibrantBlue/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-4xl text-vibrantBlue mb-4">👁️</div>
+            <h4 class="text-xl font-semibold mb-2">Transparent Processing</h4>
+            <p class="text-gray-700">Open-source logic for full visibility into how cards are validated. You’re always in control.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 bg-softBlue text-gray-800 relative z-10" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-4xl font-semibold text-vibrantBlue text-center mb-12">💡 About CreditVal</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-yellow-300/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="100">
+            <div class="text-4xl text-goldenYellow mb-4">⚙️</div>
+            <h4 class="text-xl font-semibold mb-2">Built for Developers</h4>
+            <p class="text-gray-700">Simple and powerful tool for fintech builders, QA engineers, and testers to verify card logic.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-yellow-300/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="200">
+            <div class="text-4xl text-goldenYellow mb-4">🚀</div>
+            <h4 class="text-xl font-semibold mb-2">Fast and Lightweight</h4>
+            <p class="text-gray-700">Zero dependencies on servers. Everything is handled quickly and efficiently in the browser.</p>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-yellow-300/30 transition-all border border-gray-200" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-4xl text-goldenYellow mb-4">🎯</div>
+            <h4 class="text-xl font-semibold mb-2">UX-Focused</h4>
+            <p class="text-gray-700">Sleek UI with smooth interactions and particle animations. Great for showcasing fintech apps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-gray-600 text-sm border-t border-gray-300 relative z-10">
+      &copy; 2025 CreditVal — Built by Engineers.
+    </footer>
+
+    
+    <!-- Scripts -->
+<script src="validator.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    AOS.init({ once: true, duration: 1000 });
+
+    // Real-time formatting
+    document.getElementById("cardInput").addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, "").substring(0, 16);
+      let formatted = value.match(/.{1,4}/g);
+      e.target.value = formatted ? formatted.join(" ") : "";
+    });
+
+    let CardValidator;
+    CardValidatorModule().then((Module) => {
+      CardValidator = Module;
+    });
+
+    window.validateCard = function () {
+      const cardNumber = document.getElementById("cardInput").value.trim().replace(/\s+/g, '');
+      const resultBox = document.getElementById("result");
+
+      if (!CardValidator) {
+        alert("Validator not loaded.");
+        return;
+      }
+
+      const result = CardValidator.validate_card(cardNumber);
+
+      if (result.error) {
+        resultBox.innerHTML = `<p><strong class='text-red-500'>Error:</strong> ${result.error}</p>`;
+      } else {
+        resultBox.innerHTML = `
+          <p><strong class='text-vibrantBlue'>Masked:</strong> ${result.card_number}</p>
+          <p><strong class='text-vibrantBlue'>Valid:</strong> ${result.valid ? "✅ Yes" : "❌ No"}</p>
+          <p><strong class='text-vibrantBlue'>Type:</strong> ${result.card_type}</p>
+          <p><strong class='text-vibrantBlue'>Region:</strong> ${result.region_hint}</p>
+          <p><strong class='text-vibrantBlue'>Checked:</strong> ${result.validated_at}</p>
+        `;
+      }
+
+      resultBox.classList.remove('hidden');
+    };
+
+    // Initialize tsParticles with a "bubble" animation
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: false },
+      background: { color: "transparent" },
+      fpsLimit: 60,
+      particles: {
+        number: { value: 35 },
+        color: { value: ["#00bcd4", "#ffc107", "#ffffff"] },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.2,
+          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false },
+        },
+        size: {
+          value: { min: 5, max: 15 },
+          anim: { enable: true, speed: 3, size_min: 4, sync: false },
+        },
+        move: {
+          enable: true,
+          speed: 1.2,
+          direction: "top",
+          outModes: "out",
+          random: true,
+        },
+      },
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "bubble" },
+          resize: true
+        },
+        modes: {
+          bubble: { distance: 120, size: 15, duration: 2, opacity: 0.6, speed: 3 }
+        }
+      },
+      detectRetina: true
+    });
+  });
+</script>
